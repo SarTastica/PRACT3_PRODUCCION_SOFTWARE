@@ -1,7 +1,7 @@
 from datetime import date
 from collections import defaultdict
 from core.expense import Expense
-from typing import Optional, List
+from typing import Optional
 import abc
 
 
