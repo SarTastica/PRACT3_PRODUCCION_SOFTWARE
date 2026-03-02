@@ -1,13 +1,4 @@
-name: CI Gestión de Gastos
-
-on:
-  push:
-    branches: ["**"]
-
-jobs:
-  lint-and-test:
-    runs-on: ubuntu-latest
-    steps:
+steps:
       - name: Checkout del código
         uses: actions/checkout@v4
 
@@ -16,20 +7,25 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Instalar dependencias
-        run: uv sync
+      - name: Instalar dependencias y herramientas
+        run: |
+          uv sync
+          uv pip install ruff mypy pytest pytest-bdd behave
 
-      - name: 1. Ruff linter
+      - name: 1. Ejecutar Linter (Ruff)
         run: uv run ruff check .
 
-      - name: 2. Ruff format (Check)
+      - name: 2. Verificar formato (Ruff format)
         run: uv run ruff format --check .
 
-      - name: 3. Unit tests
-        run: uv run pytest tests/unit
+      - name: 3. Verificar tipos (Mypy)
+        run: uv run mypy .
 
-      - name: 4. Integration tests
-        run: uv run pytest tests/integration
+      - name: 4. Tests Unitarios
+        run: uv run pytest core/tests/unit
 
-      - name: 5. BDD tests
-        run: uv run behave  # O 'uv run pytest tests/bdd' si usas pytest-bdd
+      - name: 5. Tests de Integración
+        run: uv run pytest core/tests/integration
+
+      - name: 6. Tests de BDD
+        run: uv run pytest core/tests/behaviour
