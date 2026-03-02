@@ -1,4 +1,11 @@
-steps:
+name: CI Gestión de Gastos - Práctica 1
+
+on: [push]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout del código
         uses: actions/checkout@v4
 
