@@ -60,7 +60,7 @@ def test_get_by_id_returns_expense():
     expense = create_expense(id=5, title="Cena")
     repo.save(expense)
     result = repo.get_by_id(5)
-    
+
     assert result is not None
     assert result.id == 5
     assert result.title == "Cena"
@@ -73,5 +73,5 @@ def test_get_by_id_returns_none_if_not_found():
     """
     repo = InMemoryExpenseRepository()
     result = repo.get_by_id(999)
-    
+
     assert result is None

@@ -90,8 +90,12 @@ def test_create_multiple_expenses_and_list():
     - Este test valida que la función de listado refleja fielmente todos los gastos registrados hasta el momento.
     """
     service = create_service()
-    service.create_expense(title="Pan", amount=3, description="Mercado", expense_date=date.today())
-    service.create_expense(title="Leche", amount=4, description="Supermercado", expense_date=date.today())
+    service.create_expense(
+        title="Pan", amount=3, description="Mercado", expense_date=date.today()
+    )
+    service.create_expense(
+        title="Leche", amount=4, description="Supermercado", expense_date=date.today()
+    )
 
     expenses = service.list_expenses()
     titles = [e.title for e in expenses]
@@ -136,7 +140,9 @@ def test_update_expense_partial_fields():
     - Este test asegura que el método update_expense respeta la inmutabilidad de los campos no especificados, realizando actualizaciones parciales de manera precisa.
     """
     service = create_service()
-    service.create_expense(title="Camiseta", amount=15, description="Ropa", expense_date=date.today())
+    service.create_expense(
+        title="Camiseta", amount=15, description="Ropa", expense_date=date.today()
+    )
     service.update_expense(expense_id=1, amount=18)
 
     expense = service.list_expenses()[0]
