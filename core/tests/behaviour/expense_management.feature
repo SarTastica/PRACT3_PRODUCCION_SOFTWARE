@@ -30,3 +30,18 @@ Feature: Gestión de gastos
   Scenario: Crear tres gastos de 10, 30, 30 euros y elimino el ultimo gasto la suma son 40 euros
 
   Scenario: Crear tres gastos de 10, 30, 30 euros y elimino el ultimo gasto la suma son 40 euros
+
+Scenario: Actualizar el nombre de un gasto existente
+    Given un gestor con un gasto de 50 euros
+    When actualizo el gasto con id 1 con el nombre "Gasto Actualizado"
+    Then el gasto con id 1 debe llamarse "Gasto Actualizado"
+
+  Scenario: Intentar eliminar un gasto que no existe no afecta al total
+    Given un gestor con un gasto de 20 euros
+    When elimino el gasto con id 99
+    Then el total de dinero gastado debe ser 20 euros
+
+  Scenario: El listado de gastos debe reflejar todos los registros
+    Given un gestor con un gasto de 10 euros
+    When añado un gasto de 20 euros llamado "Taxi"
+    Then debe haber 2 gastos registrados
